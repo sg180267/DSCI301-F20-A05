@@ -1,0 +1,29 @@
+---
+title: "Assignment 5"
+date: "2020-09-15"
+output:
+  html_document: default
+  pdf_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Read Chapter 8 on `readr`, up through the section "Parsing a Vector", stopping with the subsection "Factors".  (You can skip the subsection on "Dates, Date-Times, and Times", which we'll get to a little later.)
+
+Read also Chapter 6 on "Exploratory Data Analysis".
+
+Complete the following, which will have you do a little preliminary work on Project 1. You will be loading the data set you obtained in to R and performing a few bits of preliminary exploratory data analysis.  Build your answers into a separate R Markdown document, with appropriate commentary. (Be sure to include your name.)  Push to GitLab by no later than Tuesday, 2020-09-22.
+
+1.  For this problem, you will use `readr` to load the data you selected for Project 1.  Write an appropriate `read_csv` command, using explicitly given `col_` types to read the data, as we did in class. (You can find an example of doing this in the text in the Section "Parsing a File" in Chapter 8, *or* 11.4 online: https://r4ds.had.co.nz/data-import.html)
+    Comment on any significant choices you made.
+
+1.  Now that you have your data imported, select one variable in your data set, and perform a (very basic and preliminary) exploratory analysis of that variable.  You might produce a graph of the distribution, or produce some summary statistics, or make a table.  (Please do identify if you think there are any problematic values in this particular column.)
+    Describe anything interesting you find about this variable.
+    If you need to, perform some cleaning on the variable before your analysis. Be sure to describe any processing you perform prior to your analysis.
+
+1.  Now select *two* variables in your data set, and examine the covariation between them. Again, you might use a graph, a table, or something else to explore the relationship.
+     Describe the relationship you find.
+     If anything requires cleaning before your analysis, perform that step as well, and mention it.
+     
