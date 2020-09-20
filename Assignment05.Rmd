@@ -1,0 +1,19 @@
+---
+title: "Assignment05"
+author: "Steph Glatch"
+date: "9/19/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(tidyverse)
+```
+
+```{r}
+read_csv("C:/Users/Steph/Downloads/DSCI301/COVID_DATASET.csv")
+```
+
