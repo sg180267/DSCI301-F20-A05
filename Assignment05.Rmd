@@ -29,7 +29,7 @@ covid_data <- read_csv("C:/Users/Steph/Downloads/DSCI301/COVID_DATASET.csv",
 df <- covid_data[-c(4, 22:27)]
 ```
 
-I decided to drop these particular columns because they only had "NA's" in them. Then I changed the column types to read the data that was given. 
+I changed the column types to read the data that was given. Then I decided to drop these particular columns because they only had "NA's" in them. 
 
 # Problem 2
 
@@ -42,19 +42,22 @@ covid_data %>%
     median_age = median(age, na.rm = TRUE), 
     range_age = range(age, na.rm = TRUE)
       )
+
+covid_data %>%
+  filter(!is.na(age)) %>%
+  ggplot() +
+  geom_histogram(aes(x = age), binwidth = 25)
 ```
 
-I took all of the "NA's" out of these statistics for age because it would have just given back non-useful data. As of right now, I do not see any other problematic values in the age column. I decided to look at age first to see how far it varies. The statistics show that the range goes from a 3 month old baby to a 96 year old elderly. It is clear that any age can be affected by this virus. As shown above, the average age affected by the coronavirus is 49-50 years old. 
+I took all of the "NA's" out of these statistics for age because it would have just given back non-useful data. As of right now, I do not see any other problematic values in the age column. I decided to look at age first to see how far it varies. The statistics show that the range goes from a 3 month old baby to a 96 year old elderly. It is clear that any age can be affected by this virus. As shown above, the average age affected by the coronavirus is 49-50 years old. In this histogram, it is showing a visual of how these statistics apply. Such as, the average age being very close to 50. 
 
 
 # Problem 3
 
-Distribution by gender and age
 ```{r}
 covid_data %>%
-    filter(gender != "-") %>%
+  filter(gender != "-") %>%
     group_by(gender) %>%
-    filter(n() > 5) %>%
     ungroup() %>%
     filter(!is.na(age)) %>%
     ggplot() +
@@ -62,4 +65,14 @@ covid_data %>%
         coord_flip()
 ```
 
-I decided to examine the covariation between gender and age in this dataset. In this plot, it is showing male versus female based on the age of the genders. It is showing that females who were infected by this virus were slightly older than the males who did. Overall, the data shows the average ages affected by this virus the most for both male and female as being around 50-55 years old. 
+I decided to examine the covariation between gender and age in this dataset. In this plot, it is showing a distribution by gender, so male versus female based on the age of the genders. It is showing the females who were infected by this virus were slightly older than the males who were infected. Overall, the data shows the average ages affected by this virus the most for both male and female as being around 50-55 years old. 
+
+```{r}
+covid_data %>%
+    filter(gender != "-") %>%
+    group_by(gender) %>%
+    summarize(MeanAge = mean(age, na.rm = T), count = n()) %>%
+    arrange(desc(MeanAge))
+```
+
+I decided to do the summary statistic for the mean of age based on gender. It is showing the average as being close to 50 just as I showed above in the plot. Though, it is more noticeable now that there are more male than female who has been affected by this virus in the dataset. I am wondering if they took the same count of gender, that the mean and histogram would appear to be even closer in age. 
