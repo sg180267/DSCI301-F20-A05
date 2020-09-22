@@ -9,12 +9,6 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-```{r}
-library(tidyverse)
-read_csv("C:/Users/Steph/Downloads/DSCI301/COVID_DATASET.csv")
-```
-
-
 # Problem 1
 
 ```{r}
@@ -49,22 +43,9 @@ covid_data %>%
     range_age = range(age, na.rm = TRUE)
       )
 ```
-The range goes from a 3 month old child to a 96 year old elderly. 
 
+I took all of the "NA's" out of these statistics for age because it would have just given back non-useful data. As of right now, I do not see any other problematic values in the age column. I decided to look at age first to see how far it varies. The statistics show that the range goes from a 3 month old baby to a 96 year old elderly. It is clear that any age can be affected by this virus. As shown above, the average age affected by the coronavirus is 49-50 years old. 
 
-```{r}
-covid_data %>%
-    ggplot() +
-    geom_histogram(aes(x = age))
-
-ggplot(data = covid_data) +
-  geom_bar(mapping = aes(x = gender))
-```
-
-```{r}
-covid_data$country
-```
-Do count of country after 
 
 # Problem 3
 
@@ -81,3 +62,4 @@ covid_data %>%
         coord_flip()
 ```
 
+I decided to examine the covariation between gender and age in this dataset. In this plot, it is showing male versus female based on the age of the genders. It is showing that females who were infected by this virus were slightly older than the males who did. Overall, the data shows the average ages affected by this virus the most for both male and female as being around 50-55 years old. 
