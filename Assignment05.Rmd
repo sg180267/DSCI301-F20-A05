@@ -17,8 +17,22 @@ library(here)
 co_data <- here("COVID_DATASET.csv")
 ```
 
-```{r}
+
+```{r, eval = F}
 covid_data <- read_csv("C:/Users/Steph/Downloads/DSCI301/COVID_DATASET.csv",
+                       col_types = 
+                         cols(
+                           `location` = col_character(),
+                           `country` = col_character(),
+                           `gender` = col_character(),
+                           `age` = col_number()
+                         ))
+df <- covid_data[-c(4, 22:27)]
+```
+
+
+```{r}
+covid_data <- read_csv(co_data,
                        col_types = 
                          cols(
                            `location` = col_character(),
@@ -31,7 +45,11 @@ df <- covid_data[-c(4, 22:27)]
 
 I changed the column types to read the data that was given. Then I decided to drop these particular columns because they only had "NA's" in them. 
 
+<span style="color: green; font-size: 14pt">Now I'm interested in how those columns ended up in the data....</span> 
+
 # Problem 2
+
+<span style="color: green; font-size: 14pt">I notice you stored your final data in `df`, but you are using the intermediate `covid_data`.</span> 
 
 ```{r}
 covid_data %>%
@@ -49,6 +67,18 @@ covid_data %>%
   geom_histogram(aes(x = age), binwidth = 25)
 ```
 
+<span style="color: green; font-size: 14pt">`range` is maybe not a great choice for a summary statistic, since it returns two values.  (That's why you have two rows in your summary table.)  You could add a max column and a min.</span> 
+
+<span style="color: green; font-size: 14pt">I feel like your `binwidth` setting is probably too large; your histogram is very blocky.  After playing a bit, it seems to me like something in the 8-10 range works reaonably well:</span> 
+
+```{r}
+covid_data %>%
+  filter(!is.na(age)) %>%
+  ggplot() +
+  geom_histogram(aes(x = age), binwidth = 9)
+```
+
+
 I took all of the "NA's" out of these statistics for age because it would have just given back non-useful data. As of right now, I do not see any other problematic values in the age column. I decided to look at age first to see how far it varies. The statistics show that the range goes from a 3 month old baby to a 96 year old elderly. It is clear that any age can be affected by this virus. As shown above, the average age affected by the coronavirus is 49-50 years old. In this histogram, it is showing a visual of how these statistics apply. Such as, the average age being very close to 50. 
 
 
@@ -65,7 +95,11 @@ covid_data %>%
         coord_flip()
 ```
 
+<span style="color: green; font-size: 14pt">Your grouping here doesn't actually do anything.  (You have grouped, then immediately ungrouped.)</span> 
+
 I decided to examine the covariation between gender and age in this dataset. In this plot, it is showing a distribution by gender, so male versus female based on the age of the genders. It is showing the females who were infected by this virus were slightly older than the males who were infected. Overall, the data shows the average ages affected by this virus the most for both male and female as being around 50-55 years old. 
+
+<span style="color: green; font-size: 14pt">It doesn't really look like a significant difference between male and female, although we could always run a test for significance. I probably wouldn't report this as noticeable.</span> 
 
 ```{r}
 covid_data %>%
@@ -76,3 +110,5 @@ covid_data %>%
 ```
 
 I decided to do the summary statistic for the mean of age based on gender. It is showing the average as being close to 50 just as I showed above in the plot. Though, it is more noticeable now that there are more male than female who has been affected by this virus in the dataset. I am wondering if they took the same count of gender, that the mean and histogram would appear to be even closer in age. 
+
+<span style="color: green; font-size: 14pt">I'm really intrigued by the difference in totals by gender.  Is there actually a difference in male/female, or is this an artifact of the data set?  (I do not remember the source of your dataset.)</span> 
